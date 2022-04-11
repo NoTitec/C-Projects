@@ -1,0 +1,10 @@
+﻿  Source.cpp
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(45,48): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(45,22): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(47,52): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(47,22): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(49,56): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(49,26): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(51,52): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\2019glutproject\2019glutproject\Source.cpp(51,26): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+  2019glutproject.vcxproj -> C:\C++code\2019glutproject\x64\Debug\2019glutproject.exe

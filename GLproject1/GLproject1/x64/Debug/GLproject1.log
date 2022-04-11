@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\C++code\GLproject1\GLproject1\Source.cpp(18,12): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\C++code\GLproject1\GLproject1\Source.cpp(20,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+  GLproject1.vcxproj -> C:\C++code\GLproject1\x64\Debug\GLproject1.exe
