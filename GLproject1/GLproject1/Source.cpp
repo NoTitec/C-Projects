@@ -18,14 +18,14 @@ void MyDisplay() {
 	glRotatef(z, 0.0, 1.0, 0.0);//회전
 	glScalef(2.0, 1.0, 1.0);//크기확대//이 함수들은 행렬연산이므로 호출의 가장아래거부터 적용된다 핼렬은 교환법칙 성립안되므로 주의해서 작성해야한다
 	glTranslatef(0.2, 0, 0);//위치이동
-	glCallList(g_objectID);
+	glCallList(g_objectID);//GenerateCallList에서 생성한 오브젝트 id넘김받으면 실제로 그리기 실행
 	printf("%d\n", cnt = cnt + 1);
 	glFlush(); //현재 비디오메모리 출력
 	glutSwapBuffers();
 }
-GLint GenerateCallList() {
-	GLint id = glGenLists(1);
-	glNewList(id, GL_COMPILE);
+GLint GenerateCallList() {//매번 모델을 새로그리면 연산량이 증가-> 만들어놓고 가져다 사용
+	GLint id = glGenLists(1);//오브젝트 id번호 리턴
+	glNewList(id, GL_COMPILE);// 이 id가진 리스트를 컴파일버전 만들어놓는 버전
 	for (int i = 0; i < 16302; i++) {
 		int vi;
 		glBegin(GL_POINTS);
@@ -51,7 +51,7 @@ GLint GenerateCallList() {
 	}
 	glEnd();*/
 	//glLineWidth(2.0);
-	glEndList();
+	glEndList();// 모두 작성했다면 endlist로 종료 선언
 	return id;
 }
 void MyTimer(int value) {
@@ -62,14 +62,18 @@ void MyTimer(int value) {
 		z -= 10;
 	}
 	if (dir == -1) {
-		return;
+		if (z == 10) {
+			z -= 10;
+		}
+		else {
+			z += 10;
+		}
 	}
 	glutPostRedisplay();//MyDisplay() 재호출
 
 	glutTimerFunc(100, MyTimer, 1);//재귀
 		
 	}
-
 void Mykeyboard(unsigned char KeyPressed, int x, int y) {
 	switch (KeyPressed) {
 	case 'Q': case 'q':
