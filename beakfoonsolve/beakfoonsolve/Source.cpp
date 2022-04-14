@@ -24,17 +24,30 @@ void minustime(int *H,int *M) {
 		*M= m - 45;
 	}
 }
-int main() {
-	int H, M;
+void plustime(int* a, int* b, int* c) {
 
-	//시간입력
-	cin >> H >> M;
-	if ((H >= 0 && H <= 23) && (M >= 0 && M <= 59)) {
-		//입력시간-45분 으로 시간변경
-		minustime(&H, &M);
-		//변경시간 출력
-		cout << H << " " << M;
+	if ((*b + *c) > 59) {
+		
+		*a = *a + (*c+*b) / 60;
+		*b = (*b + *c) % 60;
+		*a %= 24;
 	}
-	
-	
+	else {
+		*b += *c;
+	}
+}
+
+int main() {
+	int a[2];
+	for (int i = 0; i <= 1; i++) {
+		cin >> a[i];
+	}
+	int c;
+	cin >> c;
+
+	if ((a[0] <= 23 && a[0] >= 0) && (a[1] >= 0 && a[1] <= 59)&&(c>=0&&c<=1000)) {
+		plustime(&a[0], &a[1], &c);
+	}
+
+	cout << a[0]<<" " << a[1];
 }
