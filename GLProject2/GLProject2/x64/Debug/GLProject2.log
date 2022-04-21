@@ -1,8 +1,6 @@
 ﻿  Source.cpp
-C:\C++code\GLProject2\GLProject2\Source.cpp(78,25): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\C++code\GLProject2\GLProject2\Source.cpp(83,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\C++code\GLProject2\GLProject2\Source.cpp(90,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\C++code\GLProject2\GLProject2\Source.cpp(94,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\C++code\GLProject2\GLProject2\Source.cpp(97,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\C++code\GLProject2\GLProject2\Source.cpp(100,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\C++code\GLProject2\GLProject2\Source.cpp(100,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\C++code\GLProject2\GLProject2\Source.cpp(110,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\C++code\GLProject2\GLProject2\Source.cpp(128,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\C++code\GLProject2\GLProject2\Source.cpp(138,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
   GLProject2.vcxproj -> C:\C++code\GLProject2\x64\Debug\GLProject2.exe

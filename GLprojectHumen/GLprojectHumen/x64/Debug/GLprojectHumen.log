@@ -1,0 +1,6 @@
+﻿  Humen.cpp
+C:\C++code\GLprojectHumen\GLprojectHumen\Humen.cpp(52,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\C++code\GLprojectHumen\GLprojectHumen\Humen.cpp(142,7): warning C4101: 'vi': unreferenced local variable
+C:\C++code\GLprojectHumen\GLprojectHumen\Humen.cpp(176,20): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\C++code\GLprojectHumen\GLprojectHumen\Humen.cpp(179,21): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  GLprojectHumen.vcxproj -> C:\C++code\GLprojectHumen\x64\Debug\GLprojectHumen.exe

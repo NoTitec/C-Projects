@@ -1,0 +1,3 @@
+﻿  Source.cpp
+C:\C++code\GLproject3\GLproject3\Source.cpp(71,12): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  GLproject3.vcxproj -> C:\C++code\GLproject3\x64\Debug\GLproject3.exe

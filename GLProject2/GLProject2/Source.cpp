@@ -12,10 +12,11 @@ int dir;//timer함수 제어변수
 GLint g_objectID = 1;
 
 void MyDisplay() {
-	glClear(GL_COLOR_BUFFER_BIT);//버퍼내용 지우기
-	glMatrixMode(GL_MODELVIEW);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);//버퍼내용 지우기, 깊이버퍼지움
+	glMatrixMode(GL_MODELVIEW);//모델뷰행렬지정
 	glLoadIdentity();//내부 행렬 초기화
 
+	gluLookAt(2.0, 2.0, 2.0,0.0,0.0,0.0,0.0,1.0,0.0);//이 위치에 lookat함수 2,2,2 위치에서 원점을 바라봄
 	//glCallList(g_objectID);//GenerateCallList에서 생성한 오브젝트 id넘김받으면 실제로 그리기 실행
 	// 
 	// 
@@ -73,34 +74,78 @@ void MyDisplay() {
 	glPopMatrix();
 	glTranslatef(0.0, -2.0, 0.0);
 	glutWireTeapot(0.2);*/
-	glPushMatrix();
 
-	glTranslatef(-0.6, 0, 0);
-	glutSolidCube(0.4);
+	// Using Push-Pop Matrix
 
-	glPushMatrix();
-	glColor3f(1.0,1.0,0);
-	glTranslatef(0.0, 0.2, 0.0);
-	glRotatef(-90, 1.0, 0, 0);
-	glutSolidCone(0.2,0.3,36,10);
-	glPopMatrix();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-0.2, 0.0,0.0);
 	glColor3f(1.0, 0.0, 0.0);
+
+
+
+	// middle
+
+	glPushMatrix();
+
+	glScalef(2.0, 1.0, 1.0);
+
 	glutSolidCube(0.4);
+
 	glPopMatrix();
-	glTranslatef(0.2, 0.0, 0.0);
-	glColor3f(1.0, 0.0, 0.0);
-	glutSolidCube(0.4);
-	glTranslatef(0.4, 0.0, 0.0);
+
+
+
+	// left
+
+	glPushMatrix();
+
+	glTranslatef(-0.6, 0.0, 0.0);
+
 	glColor3f(0.0, 0.0, 1.0);
+
 	glutSolidCube(0.4);
-	glTranslatef(0.0,0.2, 0.0);
-	glRotatef(-90, 1.0, 0, 0);
+
+
+
+	glPushMatrix();
+
+	glTranslatef(0.0, 0.2, 0.0);
+
+	glRotatef(-90.0, 1.0, 0.0, 0.0);
+
 	glColor3f(1.0, 1.0, 0.0);
+
 	glutSolidCone(0.2, 0.3, 36, 10);
+
+	glPopMatrix();
+
+	glPopMatrix();
+
+
+
+	// right
+
+	glPushMatrix();
+
+	glTranslatef(+0.6, 0.0, 0.0);
+
+	glColor3f(0.0, 0.0, 1.0);
+
+	glutSolidCube(0.4);
+
+
+
+	glPushMatrix();
+
+	glTranslatef(0.0, 0.2, 0.0);
+
+	glRotatef(-90.0, 1.0, 0.0, 0.0);
+
+	glColor3f(1.0, 1.0, 0.0);
+
+	glutSolidCone(0.2, 0.3, 36, 10);
+
+	glPopMatrix();
+
+	glPopMatrix();
 	glLoadIdentity();
 	glFlush(); //현재 비디오메모리 출력
 	glutSwapBuffers();
@@ -189,7 +234,7 @@ int main(int argc, char* argv[])//표준 매개변수
 
 	glutInitWindowPosition(200, 200); // (100,100) 위치에 윈도우
 
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);//grb면 rgb모드 single이면 프레임 버퍼가 1개이다
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE |GLUT_DEPTH);//grb면 rgb모드 single이면 프레임 버퍼가 1개이다 깊이처리
 
 
 
@@ -231,10 +276,11 @@ int main(int argc, char* argv[])//표준 매개변수
 
 	printf("Window pos.: %d %d\n", windowX, windowY);
 
-	glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_PROJECTION);//투상행렬로 전환
 	glLoadIdentity();
-	glOrtho(-2.0,2.0,-2.0,2.0,-2.0,2.0);
+	glOrtho(-2.0,2.0,-2.0,2.0,2.0,6.0);//공간부피설정 각각 x,y,z 범위 지정
 	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glEnable(GL_DEPTH_TEST);//깊이처리 활성화
 	//glutKeyboardFunc(Mykeyboard);
 	//g_objectID = GenerateCallList();
 	glutDisplayFunc(MyDisplay); // (디스플레이 콜백 등록)
