@@ -89,7 +89,7 @@ int main(int argc, char* argv[])//표준 매개변수
 	//return 0;
 	glutInit(&argc, argv);
 
-	glutInitWindowSize(300, 300); // 윈도우 크기
+	glutInitWindowSize(600, 600); // 윈도우 크기
 
 	glutInitWindowPosition(100, 100); // (100,100) 위치에 윈도우
 
@@ -136,11 +136,11 @@ int main(int argc, char* argv[])//표준 매개변수
 	printf("Window pos.: %d %d\n", windowX, windowY);
 
 	//glMatrixMode(GL_PROJECTION);
-	//glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);//정사투영 좌표 설정
+	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0);//정사투영 좌표 설정
 	glutDisplayFunc(MyDisplay); // (디스플레이 콜백 등록)
 	glutKeyboardFunc(Mykeyboard);//keyboard event handling
 	glutMouseFunc(MyMouseClick);
-	//glutMotionFunc(MyMotion);
+	glutMotionFunc(MyMotion);
 
 	glutMainLoop(); // 중요 코드 생략됨 (이벤트 루프)
 }

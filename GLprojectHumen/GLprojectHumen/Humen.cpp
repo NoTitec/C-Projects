@@ -1,15 +1,17 @@
-#include <glut.h>
+ï»¿#include <glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h>
 #include <cmath>
 using namespace std;
 
-GLint TopLeftX, TopLeftY, BottomRightX, BottomRightY;
-int cnt = 0; //Àü¿ªº¯¼ö
-int z = -1; //È¸Àü Á¦¾î º¯¼ö
-int dir;//timerÇÔ¼ö Á¦¾îº¯¼ö
 GLint g_objectID = 1;
+GLint xValue = 0;
+GLint yValue = 0;
+GLint zValue = 0;
+GLint clickDown = 0;
+GLint fitX = 0;
+GLint fitY = 0;
 
 GLfloat hangle = 0.0f;
 GLfloat alangle = 0.0f;
@@ -17,15 +19,22 @@ GLfloat arngle = 0.0f;
 GLfloat llngle = 0.0f;
 GLfloat lrngle = 0.0f;
 double time = 0;
-void MyDisplay() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//¹öÆÛ³»¿ë Áö¿ì±â, ±íÀÌ¹öÆÛÁö¿ò
-	glMatrixMode(GL_MODELVIEW);//¸ğµ¨ºäÇà·ÄÁöÁ¤
-	glLoadIdentity();//³»ºÎ Çà·Ä ÃÊ±âÈ­
 
-	gluLookAt(2.0, 2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);//ÀÌ À§Ä¡¿¡ lookatÇÔ¼ö 2,2,2 À§Ä¡¿¡¼­ ¿øÁ¡À» ¹Ù¶óº½
-	//glCallList(g_objectID);//GenerateCallList¿¡¼­ »ı¼ºÇÑ ¿ÀºêÁ§Æ® id³Ñ±è¹ŞÀ¸¸é ½ÇÁ¦·Î ±×¸®±â ½ÇÇà
-	// 
-	// 
+
+void MyDisplay() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//ë²„í¼ë‚´ìš© ì§€ìš°ê¸°, ê¹Šì´ë²„í¼ì§€ì›€
+	glMatrixMode(GL_MODELVIEW);//ëª¨ë¸ë·°í–‰ë ¬ì§€ì •
+	glLoadIdentity();//ë‚´ë¶€ í–‰ë ¬ ì´ˆê¸°í™”
+
+	gluLookAt(0.0, 2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);//ì´ ìœ„ì¹˜ì— lookatí•¨ìˆ˜ 2,2,2 ìœ„ì¹˜ì—ì„œ ì›ì ì„ ë°”ë¼ë´„
+	//glCallList(g_objectID);//GenerateCallListì—ì„œ ìƒì„±í•œ ì˜¤ë¸Œì íŠ¸ idë„˜ê¹€ë°›ìœ¼ë©´ ì‹¤ì œë¡œ ê·¸ë¦¬ê¸° ì‹¤í–‰
+	
+	
+	glRotatef(xValue, 1.0, 0.0, 0.0);
+	glRotatef(yValue, 0.0, 1.0, 0.0);
+	glRotatef(zValue, 0.0, 0.0, 1.0);
+
+
 	glBegin(GL_LINES);
 
 	glColor3f(1, 0, 0); // X R
@@ -102,42 +111,99 @@ void MyDisplay() {
 	glPopMatrix();
 	glPopMatrix();
 	//leftleg
+	
+	//transandrotate
 	glPushMatrix();
-		glTranslatef(-0.5, -2.0, 0.0);
+	glTranslated(-0.5, 0, 0);
+	glRotatef(llngle, 1.0, 0, 0);
+	//modeling
 	glPushMatrix();
-
-		glColor3f(0.0, 1.0, 1.0);
-		glRotatef(llngle, 1.0, 0.0, 0.0);
-		glScalef(0.5, 4.0, 0.5);
-		glutSolidCube(1.0);
-	glPopMatrix();
-		glRotatef(llngle, 1.0, 0.0, 0.0);
-		glTranslatef(0.0, -2.5, 0.0);
-		glColor3f(0, 0, 0);
-	glutSolidCube(0.5);
-	glPopMatrix();
-	//rightleg
-	glPushMatrix();
-	glTranslatef(0.5, -2.0, 0.0);
-	glPushMatrix();
-	glRotatef(lrngle, 1.0, 0.0, 0.0);
-	glColor3f(0.0, 1.0, 1.0);
+	glColor3f(0, 1.0, 1.0);
+	glTranslatef(0, -2.0, 0);
 	glScalef(0.5, 4.0, 0.5);
 	glutSolidCube(1.0);
 	glPopMatrix();
-	glRotatef(lrngle, 1.0, 0.0, 0.0);
-	glTranslatef(0.0, -2.5, 0.0);
+
+	glPushMatrix();
 	glColor3f(0, 0, 0);
+	glTranslatef(0, -4.5, 0);
 	glutSolidCube(0.5);
 	glPopMatrix();
+	glPopMatrix();
+
+	//rightleg
+	//transandrotate
+	glPushMatrix();
+	glTranslated(0.5, 0, 0);
+	glRotatef(lrngle, 1.0, 0, 0);
+	//modeling
+	glPushMatrix();
+	glColor3f(0, 1.0, 1.0);
+	glTranslatef(0, -2.0, 0);
+	glScalef(0.5, 4.0, 0.5);
+	glutSolidCube(1.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 0, 0);
+	glTranslatef(0, -4.5, 0);
+	glutSolidCube(0.5);
+	glPopMatrix();
+	glPopMatrix();
 	glLoadIdentity();
-	glFlush(); //ÇöÀç ºñµğ¿À¸Ş¸ğ¸® Ãâ·Â
+	glFlush(); //í˜„ì¬ ë¹„ë””ì˜¤ë©”ëª¨ë¦¬ ì¶œë ¥
 	glutSwapBuffers();
 }
 
-GLint GenerateCallList() {//¸Å¹ø ¸ğµ¨À» »õ·Î±×¸®¸é ¿¬»ê·®ÀÌ Áõ°¡-> ¸¸µé¾î³õ°í °¡Á®´Ù »ç¿ë
-	GLint id = glGenLists(1);//¿ÀºêÁ§Æ® id¹øÈ£ ¸®ÅÏ
-	glNewList(id, GL_COMPILE);// ÀÌ id°¡Áø ¸®½ºÆ®¸¦ ÄÄÆÄÀÏ¹öÀü ¸¸µé¾î³õ´Â ¹öÀü
+void MyKeyboard(unsigned char KeyPressed, int X, int Y) {
+	switch (KeyPressed) {
+	case 'x':
+		xValue += 1;
+		if (xValue > 360)xValue -= 360;
+		break;
+	case 'y':
+		yValue += 1;
+		if (yValue > 360)yValue -= 360;
+		break;
+	case 'z':
+		zValue += 1;
+		if (zValue > 360)zValue -= 360;
+		break;
+	case 'q':
+		exit(0); break;
+	case 32:
+		xValue = 0;
+		yValue = 0;
+		zValue = 0;
+		break;
+
+	}
+	glutPostRedisplay();
+}
+
+void MyMouseClick(GLint Button, GLint State, GLint X, GLint Y) {
+	if (Button == GLUT_LEFT_BUTTON && State == GLUT_DOWN) {
+		fitX = X;
+		fitY = Y;
+		clickDown = 1;
+	}
+	if (Button == GLUT_LEFT_BUTTON && State == GLUT_UP) {
+		
+		clickDown = 0;
+	}
+}
+void MyMouseMove(GLint X, GLint Y) {
+	if (clickDown == 1) {
+		yValue += (fitX - X);
+		xValue += (fitY - Y);
+		fitX = X;
+		fitY = Y;
+	}
+	glutPostRedisplay();
+}
+GLint GenerateCallList() {//ë§¤ë²ˆ ëª¨ë¸ì„ ìƒˆë¡œê·¸ë¦¬ë©´ ì—°ì‚°ëŸ‰ì´ ì¦ê°€-> ë§Œë“¤ì–´ë†“ê³  ê°€ì ¸ë‹¤ ì‚¬ìš©
+	GLint id = glGenLists(1);//ì˜¤ë¸Œì íŠ¸ idë²ˆí˜¸ ë¦¬í„´
+	glNewList(id, GL_COMPILE);// ì´ idê°€ì§„ ë¦¬ìŠ¤íŠ¸ë¥¼ ì»´íŒŒì¼ë²„ì „ ë§Œë“¤ì–´ë†“ëŠ” ë²„ì „
 	for (int i = 0; i < 16302; i++) {
 		int vi;
 		//glBegin(GL_POINTS);
@@ -163,7 +229,7 @@ GLint GenerateCallList() {//¸Å¹ø ¸ğµ¨À» »õ·Î±×¸®¸é ¿¬»ê·®ÀÌ Áõ°¡-> ¸¸µé¾î³õ°í °¡
 	}
 	glEnd();*/
 	//glLineWidth(2.0);
-	glEndList();// ¸ğµÎ ÀÛ¼ºÇß´Ù¸é endlist·Î Á¾·á ¼±¾ğ
+	glEndList();// ëª¨ë‘ ì‘ì„±í–ˆë‹¤ë©´ endlistë¡œ ì¢…ë£Œ ì„ ì–¸
 	return id;
 }
 
@@ -173,47 +239,27 @@ void MyTimer(int value) {
 	hangle += 5;
 	if (hangle >= 360) hangle -= 360;
 
-	alangle=sin(time) * 40;
+	alangle=cos(time) * 40;
 	arngle = -alangle;
 
-	llngle = sin(time) * 30;
-	lrngle = -llngle;
-	glutPostRedisplay();//MyDisplay() ÀçÈ£Ãâ
+	lrngle = cos(time) * 30;
+	llngle = -lrngle;
+	glutPostRedisplay();//MyDisplay() ì¬í˜¸ì¶œ
 
-	glutTimerFunc(30, MyTimer, 1);//Àç±Í
-
-}
-
-void Mykeyboard(unsigned char KeyPressed, int x, int y) {
-	switch (KeyPressed) {
-	case 'Q': case 'q':
-		exit(0); break;
-	case 'Z':case 'z':
-		z += 10;
-		glutPostRedisplay();//´Ù½Ã ±×¸®¶ó´Â Äİ¹éÇÔ¼ö
-		break;
-	case 'X': case 'x':
-		z -= 10;
-		glutPostRedisplay();//´Ù½Ã ±×¸®¶ó´Â Äİ¹éÇÔ¼ö
-		break;
-	case '=':dir = 1;  break;
-	case '-':dir = 0;  break;
-	case 's':dir = -1; break;
-	}
+	glutTimerFunc(30, MyTimer, 1);//ì¬ê·€
 
 }
 
 
-
-int main(int argc, char* argv[])//Ç¥ÁØ ¸Å°³º¯¼ö
+int main(int argc, char* argv[])//í‘œì¤€ ë§¤ê°œë³€ìˆ˜
 {
 	glutInit(&argc, argv);
 
-	glutInitWindowSize(800, 800); // À©µµ¿ì Å©±â
+	glutInitWindowSize(800, 800); // ìœˆë„ìš° í¬ê¸°
 
-	glutInitWindowPosition(200, 200); // (100,100) À§Ä¡¿¡ À©µµ¿ì
+	glutInitWindowPosition(200, 200); // (100,100) ìœ„ì¹˜ì— ìœˆë„ìš°
 
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);//grb¸é rgb¸ğµå singleÀÌ¸é ÇÁ·¹ÀÓ ¹öÆÛ°¡ 1°³ÀÌ´Ù ±íÀÌÃ³¸®
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);//grbë©´ rgbëª¨ë“œ singleì´ë©´ í”„ë ˆì„ ë²„í¼ê°€ 1ê°œì´ë‹¤ ê¹Šì´ì²˜ë¦¬
 
 
 
@@ -233,19 +279,19 @@ int main(int argc, char* argv[])//Ç¥ÁØ ¸Å°³º¯¼ö
 
 	// Properties
 
-	screenWidth = glutGet(GLUT_SCREEN_WIDTH); // È­¸é ³Êºñ
+	screenWidth = glutGet(GLUT_SCREEN_WIDTH); // í™”ë©´ ë„ˆë¹„
 
-	screenHeight = glutGet(GLUT_SCREEN_HEIGHT); // È­¸é Å©±â
+	screenHeight = glutGet(GLUT_SCREEN_HEIGHT); // í™”ë©´ í¬ê¸°
 
-	windowWidth = glutGet(GLUT_INIT_WINDOW_WIDTH); // À©µµ¿ì ³Êºñ
+	windowWidth = glutGet(GLUT_INIT_WINDOW_WIDTH); // ìœˆë„ìš° ë„ˆë¹„
 
-	windowHeight = glutGet(GLUT_WINDOW_HEIGHT); // À©µµ¿ì Å©±â
+	windowHeight = glutGet(GLUT_WINDOW_HEIGHT); // ìœˆë„ìš° í¬ê¸°
 
 
 
-	windowX = glutGet(GLUT_INIT_WINDOW_X); // À©µµ¿ì X ÁÂÇ¥
+	windowX = glutGet(GLUT_INIT_WINDOW_X); // ìœˆë„ìš° X ì¢Œí‘œ
 
-	windowY = glutGet(GLUT_INIT_WINDOW_Y); // À©µµ¿ì Y ÁÂÇ¥
+	windowY = glutGet(GLUT_INIT_WINDOW_Y); // ìœˆë„ìš° Y ì¢Œí‘œ
 
 
 
@@ -254,16 +300,20 @@ int main(int argc, char* argv[])//Ç¥ÁØ ¸Å°³º¯¼ö
 	printf("Window Info: %d %d\n", windowWidth, windowHeight);
 
 	printf("Window pos.: %d %d\n", windowX, windowY);
+	
+	//Â ì‹œì Â ì„¤ì •ì‹œÂ GL_DEPTHÂ ì‚¬ìš©í•˜ëŠ”Â ê²½ìš°Â í•„ìš”
 
-	glMatrixMode(GL_PROJECTION);//Åõ»óÇà·Ä·Î ÀüÈ¯
+	glMatrixMode(GL_PROJECTION);//íˆ¬ìƒí–‰ë ¬ë¡œ ì „í™˜
 	glLoadIdentity();
-	glOrtho(-6.0, 6.0, -6.0, 6.0, -7.0, 7.0);//°ø°£ºÎÇÇ¼³Á¤ °¢°¢ x,y,z ¹üÀ§ ÁöÁ¤
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glEnable(GL_DEPTH_TEST);//±íÀÌÃ³¸® È°¼ºÈ­
-	//glutKeyboardFunc(Mykeyboard);
+	glOrtho(-6.0, 6.0, -6.0, 6.0, -7.0, 7.0);//ê³µê°„ë¶€í”¼ì„¤ì • ê°ê° x,y,z ë²”ìœ„ ì§€ì •
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glEnable(GL_DEPTH_TEST);//ê¹Šì´ì²˜ë¦¬ í™œì„±í™”
 	//g_objectID = GenerateCallList();
-	glutDisplayFunc(MyDisplay); // (µğ½ºÇÃ·¹ÀÌ Äİ¹é µî·Ï)
+	glutDisplayFunc(MyDisplay); // (ë””ìŠ¤í”Œë ˆì´ ì½œë°± ë“±ë¡)
+	glutKeyboardFunc(MyKeyboard);
+	glutMouseFunc(MyMouseClick);
+	glutMotionFunc(MyMouseMove);
 	glutTimerFunc(30, MyTimer, 1);
-	glutMainLoop(); // Áß¿ä ÄÚµå »ı·«µÊ (ÀÌº¥Æ® ·çÇÁ)
+	glutMainLoop(); // ì¤‘ìš” ì½”ë“œ ìƒëµë¨ (ì´ë²¤íŠ¸ ë£¨í”„)
 
 }
