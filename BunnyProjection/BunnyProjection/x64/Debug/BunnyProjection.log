@@ -1,0 +1,5 @@
+﻿  Bunny_Projection.cpp
+C:\C++code\BunnyProjection\BunnyProjection\Bunny_Projection.cpp(77,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
+C:\C++code\BunnyProjection\BunnyProjection\Bunny_Projection.cpp(78,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
+C:\C++code\BunnyProjection\BunnyProjection\Bunny_Projection.cpp(79,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
+  BunnyProjection.vcxproj -> C:\C++code\BunnyProjection\x64\Debug\BunnyProjection.exe
