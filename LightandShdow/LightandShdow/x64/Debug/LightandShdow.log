@@ -1,0 +1,5 @@
+﻿  Source.cpp
+C:\C++code\LightandShdow\LightandShdow\Source.cpp(77,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
+C:\C++code\LightandShdow\LightandShdow\Source.cpp(78,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
+C:\C++code\LightandShdow\LightandShdow\Source.cpp(79,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
+  LightandShdow.vcxproj -> C:\C++code\LightandShdow\x64\Debug\LightandShdow.exe
