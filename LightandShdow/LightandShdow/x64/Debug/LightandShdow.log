@@ -1,5 +1,6 @@
 ﻿  Source.cpp
-C:\C++code\LightandShdow\LightandShdow\Source.cpp(77,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
-C:\C++code\LightandShdow\LightandShdow\Source.cpp(78,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
-C:\C++code\LightandShdow\LightandShdow\Source.cpp(79,12): warning C4244: 'argument': conversion from 'GLint' to 'GLfloat', possible loss of data
+C:\C++code\LightandShdow\LightandShdow\Source.cpp(8,50): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\C++code\LightandShdow\LightandShdow\Source.cpp(10,52): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\C++code\LightandShdow\LightandShdow\Source.cpp(11,52): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\C++code\LightandShdow\LightandShdow\Source.cpp(44,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
   LightandShdow.vcxproj -> C:\C++code\LightandShdow\x64\Debug\LightandShdow.exe
