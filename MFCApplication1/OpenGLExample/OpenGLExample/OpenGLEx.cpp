@@ -21,8 +21,8 @@ void MyDisplay()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBindTexture(GL_TEXTURE_2D, MyTextureObject[0]);
-
+	glBindTexture(GL_TEXTURE_2D, MyTextureObject[0]);//2D bitmap image set
+	//set image for glTexCoord2f function
 	glBegin(GL_POLYGON);
 	glColor3f(1.0, 0.0, 0.0);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);	//앞면
@@ -70,7 +70,7 @@ void MyDisplay()
 	glVertex3f(-1.0f, 1.0f, -1.0f);
 	glEnd();
 
-	glutSwapBuffers();
+	glutSwapBuffers();//swap buf cause by double buffring mode
 }
 
 void MyTimer(int Value)
@@ -106,9 +106,9 @@ int LoadGLTextures(char* szFilePath)			//파일을 로드하고 텍스쳐로 변환
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Minimization Filter (GL_NEAREST / GL_LINEAR)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Maximization Filter (GL_NEAREST / GL_LINEAR)
-
+		//clamp or repeat
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// S Direction  
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);	// T Direction
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);	// T Direction
 
 		glEnable(GL_TEXTURE_2D);
 	}
@@ -140,7 +140,7 @@ int main(int argc, char** argv)
 
 	glEnable(GL_DEPTH_TEST);
 
-	if (LoadGLTextures(fileName))
+	if (LoadGLTextures(fileName))/// if image load success-> start mainloop
 	{
 		glutMainLoop();
 	}
